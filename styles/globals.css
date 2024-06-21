@@ -31,3 +31,37 @@ body {
     text-wrap: balance;
   }
 }
+
+/* styles/global.css */
+@keyframes slap {
+  0% {
+    transform: rotate(0deg);
+  }
+  10% {
+    transform: rotate(30deg);
+  }
+  30% {
+    transform: rotate(-25deg);
+  }
+  50% {
+    transform: rotate(20deg);
+  }
+  70% {
+    transform: rotate(-15deg);
+  }
+  90% {
+    transform: rotate(10deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+.img-slap {
+  display: block;
+  transition: transform 0.5s ease-out;
+}
+
+.slapped {
+  animation: slap 0.5s;
+}
