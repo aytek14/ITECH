@@ -4,7 +4,7 @@ import Image from "next/image";
 const characters = [
   { id: 1, imageUrl: "/1.png", name: "Sudan çıkmış" },
   { id: 2, imageUrl: "/2.png", name: "Zirzop" },
-  { id: 3, imageUrl: "/3.png", name: "Keltoş" },
+  { id: 3, imageUrl: "/3.png", name: "Nazluşka" },
 ];
 
 const SlappableImage = () => {
