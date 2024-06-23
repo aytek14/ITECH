@@ -8,15 +8,17 @@ const characters = [
 ];
 
 const SlappableImage = () => {
-  const [selectedCharacter, setSelectedCharacter] = useState(
-    characters[0].imageUrl
+  const [selectedCharacterId, setSelectedCharacterId] = useState(
+    characters[0].id
   );
   const [slapped, setSlapped] = useState(false);
   const [slapCount, setSlapCount] = useState(0);
   const slapSound = useRef<HTMLAudioElement | null>(null);
+  const loveSound = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
     slapSound.current = new Audio("/hardSlap.mp3");
+    loveSound.current = new Audio("/loveSound.mp3");
     const count = localStorage.getItem("slapCount");
     if (count) {
       setSlapCount(parseInt(count));
@@ -31,8 +33,14 @@ const SlappableImage = () => {
     setSlapCount(newCount);
     localStorage.setItem("slapCount", newCount.toString());
 
-    if (slapSound.current) {
-      slapSound.current.play();
+    if (selectedCharacterId === 3) {
+      if (loveSound.current) {
+        loveSound.current.play();
+      }
+    } else {
+      if (slapSound.current) {
+        slapSound.current.play();
+      }
     }
   };
 
@@ -44,9 +52,9 @@ const SlappableImage = () => {
       <div className="grid grid-cols-3 gap-6">
         {characters.map((character) => (
           <div
-            className="flex flex-col items-center justify-center h-44 w-full" // Adjusted height and removed padding
+            className="flex flex-col items-center justify-center h-44 w-full"
             key={character.id}
-            onClick={() => setSelectedCharacter(character.imageUrl)}
+            onClick={() => setSelectedCharacterId(character.id)}
           >
             <Image
               src={character.imageUrl}
@@ -54,7 +62,7 @@ const SlappableImage = () => {
               width={100}
               height={100}
               className={`cursor-pointer object-cover ${
-                selectedCharacter === character.imageUrl
+                selectedCharacterId === character.id
                   ? "ring-4 rounded ring-blue-900"
                   : ""
               }`}
@@ -66,7 +74,10 @@ const SlappableImage = () => {
         ))}
       </div>
       <Image
-        src={selectedCharacter}
+        src={
+          characters.find((char) => char.id === selectedCharacterId)
+            ?.imageUrl || "/default.png" // Fallback image if not found
+        }
         alt="Selected Character"
         width={260}
         height={200}
