@@ -4,7 +4,7 @@ import Image from "next/image";
 const characters = [
   { id: 1, imageUrl: "/1.png", name: "Sudan çıkmış" },
   { id: 2, imageUrl: "/2.png", name: "Zirzop" },
-  { id: 3, imageUrl: "/3.png", name: "Nazluşka" },
+  { id: 3, imageUrl: "/3.png", name: "Mert'i tokatla" },
 ];
 
 const SlappableImage = () => {
@@ -33,14 +33,8 @@ const SlappableImage = () => {
     setSlapCount(newCount);
     localStorage.setItem("slapCount", newCount.toString());
 
-    if (selectedCharacterId === 3) {
-      if (loveSound.current) {
-        loveSound.current.play();
-      }
-    } else {
-      if (slapSound.current) {
-        slapSound.current.play();
-      }
+    if (slapSound.current) {
+      slapSound.current.play();
     }
   };
 
@@ -90,11 +84,13 @@ const SlappableImage = () => {
         onClick={handleSlap}
         className="slap-button bg-blue-500 text-white font-bold py-2 px-4 rounded"
       >
-        Aytek'i Tokat Manyağı Yap!
+        {selectedCharacterId === 3
+          ? "Mert'i Tokat Manyağı Yap!"
+          : "Aytek'i Tokat Manyağı Yap!"}
       </button>
       <p className="text-black text-xl font-inter">
-        Bugüne kadar Aytek{" "}
-        <span className="font-inter font-bold text-2xl">{slapCount} </span> kere
+        Bugüne kadar {selectedCharacterId === 3 ? "Mert" : "Aytek"}{" "}
+        <span className="font-inter font-bold text-2xl">{slapCount}</span> kere
         tokatlandı!
       </p>
     </div>
